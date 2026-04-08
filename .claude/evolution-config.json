@@ -1,0 +1,58 @@
+{
+  "version": "1.0.0",
+  "agent_id": "evolution-agent-template",
+  "created_at": "2025-04-08T00:00:00Z",
+  "evolution": {
+    "current_level": 1,
+    "experience_points": 0,
+    "next_level_threshold": 200,
+    "last_run": "1970-01-01",
+    "specializations": []
+  },
+  "knowledge_base": {
+    "total_entries": 0,
+    "categories": {
+      "architecture": 0,
+      "patterns": 0,
+      "code_snippets": 0,
+      "lessons_learned": 0
+    },
+    "last_updated": "2025-04-08T00:00:00Z"
+  },
+  "learning_stats": {
+    "projects_analyzed": 0,
+    "code_lines_scanned": 0,
+    "patterns_discovered": 0,
+    "skills_acquired": 0,
+    "hours_spent_learning": 0
+  },
+  "goals": {
+    "short_term": [
+      "建立知识库",
+      "完成第一次项目分析"
+    ],
+    "mid_term": [
+      "达到 Level 2",
+      "建立可复用 Skill 库"
+    ],
+    "long_term": [
+      "成为项目专家",
+      "实现持续进化"
+    ]
+  },
+  "reflection_schedule": {
+    "daily": "简要回顾",
+    "weekly": "深度反思",
+    "monthly": "知识整合"
+  },
+  "evolution_milestones": [
+    {
+      "level": 1,
+      "name": "学徒",
+      "achieved_at": "2025-04-08",
+      "key_achievements": [
+        "框架初始化完成"
+      ]
+    }
+  ]
+}
