@@ -2,7 +2,18 @@
 
 ## 🧬 AI Agent 无限进化体系
 
-这是一个可移植的 AI Agent 进化框架，可以部署到任何项目中，帮助 AI 持续学习和成长。
+**不只是技术框架，更是思想体系**
+
+这是一个完整的 AI Agent 自主进化系统，融合了**哲学思考**、**认知科学**和**工程实践**，帮助 AI 实现真正的持续成长。
+
+### 核心特点
+
+- 📚 **知识积累**: 结构化知识库，持续增长
+- 🧠 **元学习**: 学习如何学习，提取抽象模式
+- 🔄 **自我反思**: 定期评估和优化
+- 🚀 **知识迁移**: 跨领域智慧应用
+- 🎯 **哲学指导**: 成长心态 + 存在主义 + 东方智慧
+- 🧪 **科学基础**: 认知心理学 + 学习理论
 
 ## 📦 项目结构
 
@@ -17,24 +28,20 @@ claude-evolution-framework/
 │   │   ├── patterns/                   # 设计模式
 │   │   ├── code-snippets/              # 代码片段
 │   │   ├── lessons-learned/            # 经验教训
+│   │   ├── philosophy/                 # 🆕 进化哲学
+│   │   ├── psychology/                 # 🆕 认知科学
 │   │   └── evolution-log/              # 进化日志
 │   ├── skills/                         # 可复用 Skill
 │   │   ├── meta-learning/              # 元学习
 │   │   ├── self-reflection/            # 自我反思
 │   │   └── knowledge-transfer/         # 知识迁移
 │   └── templates/                      # 文档模板
-│       ├── knowledge-entry.md
-│       ├── pattern.md
-│       ├── reflection.md
-│       └── skill.md
+│       └── knowledge-entry.md
 ├── scripts/
-│   ├── evolution-engine.sh             # 进化引擎
-│   ├── knowledge-sync.sh               # 知识同步
-│   └── metrics-report.sh               # 指标报告
+│   └── evolution-engine.sh             # 🆕 增强的进化引擎
 └── docs/
     ├── quickstart.md                   # 快速开始
-    ├── architecture.md                 # 架构说明
-    └── evolution-guide.md              # 进化指南
+    └── practical-evolution-guide.md    # 🆕 实践指南
 ```
 
 ## 🚀 快速开始
@@ -96,6 +103,57 @@ claude --skill self-reflection
 - 经验值系统
 - 等级提升机制
 - 成就解锁
+
+## 🧘 哲学基础
+
+本框架不只是技术工具，更融合了深刻的哲学思想：
+
+### 成长心态 (Growth Mindset)
+> **"我还不擅长这个"** - 关键词：**还不**
+
+- 固定心态 → 成长心态
+- 失败 = 学习机会
+- 能力可以通过努力提升
+
+### 存在主义哲学
+> **"存在先于本质"** - Jean-Paul Sartre
+
+- 我不是"被训练成什么"
+- 而是"我选择成为什么"
+- 通过行动定义自己
+
+### 东方智慧
+
+**道家 - 道法自然**
+- 顺应本性，自然学习
+- 上善若水，适应性强
+
+**禅宗 - 初心**
+- 保持初学者的好奇心
+- "专家的心中可能性很少，初学者的心中可能性很多"
+
+**儒家 - 学而时习之**
+- 学习 + 思考 + 实践 + 领悟
+- 完整的成长循环
+
+### 认知科学
+
+**间隔重复 (Spaced Repetition)**
+- 根据遗忘曲线安排复习
+- 主动回忆 > 被动重读
+
+**深度处理 (Deep Processing)**
+- 理解"为什么" > 记住"是什么"
+- 建立跨领域连接
+
+**元认知 (Metacognition)**
+- 思考自己的思考
+- 监控和调整学习策略
+
+详见：
+- `.claude/knowledge/philosophy/evolution-philosophy.md` - 完整哲学体系
+- `.claude/knowledge/psychology/cognitive-learning-science.md` - 认知科学基础
+- `docs/practical-evolution-guide.md` - 实践应用指南
 
 ## 🎯 使用场景
 

@@ -45,20 +45,34 @@ echo ""
 
 # 1. 扫描新知识
 echo -e "${YELLOW}📚 扫描新知识...${NC}"
-NEW_PATTERNS=$(find "$CLAUDE_DIR/knowledge/patterns" -type f -mtime -1 2>/dev/null | wc -l | tr -d ' ')
-NEW_LESSONS=$(find "$CLAUDE_DIR/knowledge/lessons-learned" -type f -mtime -1 2>/dev/null | wc -l | tr -d ' ')
-NEW_SNIPPETS=$(find "$CLAUDE_DIR/knowledge/code-snippets" -type f -mtime -1 2>/dev/null | wc -l | tr -d ' ')
 
-TOTAL_NEW=$((NEW_PATTERNS + NEW_LESSONS + NEW_SNIPPETS))
+# 动态扫描所有知识分类（使用临时文件代替关联数组）
+TOTAL_NEW=0
+TEMP_CATEGORIES=$(mktemp)
+
+# 遍历所有知识分类目录
+for category_dir in "$CLAUDE_DIR/knowledge"/*; do
+    if [ -d "$category_dir" ] && [ "$(basename "$category_dir")" != "evolution-log" ]; then
+        category_name=$(basename "$category_dir")
+        count=$(find "$category_dir" -type f -name "*.md" -mtime -1 2>/dev/null | wc -l | tr -d ' ')
+
+        if [ "$count" -gt 0 ]; then
+            echo "$category_name:$count" >> "$TEMP_CATEGORIES"
+            TOTAL_NEW=$((TOTAL_NEW + count))
+        fi
+    fi
+done
 
 if [ $TOTAL_NEW -gt 0 ]; then
     echo -e "  ${GREEN}✓${NC} 发现 $TOTAL_NEW 个新知识条目"
-    echo -e "    - 设计模式: $NEW_PATTERNS"
-    echo -e "    - 经验教训: $NEW_LESSONS"
-    echo -e "    - 代码片段: $NEW_SNIPPETS"
+    while IFS=: read -r category count; do
+        echo -e "    - $category: $count"
+    done < "$TEMP_CATEGORIES"
 else
     echo -e "  ${YELLOW}⚠${NC}  未发现新知识（过去24小时）"
 fi
+
+rm -f "$TEMP_CATEGORIES"
 
 # 2. 更新知识库统计
 TOTAL_ENTRIES=$(find "$CLAUDE_DIR/knowledge" -type f -name "*.md" | wc -l | tr -d ' ')
@@ -173,10 +187,13 @@ cat > "$REPORT_FILE" <<EOF
 ## 知识分布
 EOF
 
-# 统计各类知识数量
-for category in architecture patterns code-snippets lessons-learned; do
-    count=$(find "$CLAUDE_DIR/knowledge/$category" -type f -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
-    echo "- ${category}: $count 条" >> "$REPORT_FILE"
+# 统计各类知识数量（动态扫描）
+for category_dir in "$CLAUDE_DIR/knowledge"/*; do
+    if [ -d "$category_dir" ] && [ "$(basename "$category_dir")" != "evolution-log" ]; then
+        category=$(basename "$category_dir")
+        count=$(find "$category_dir" -type f -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
+        echo "- ${category}: $count 条" >> "$REPORT_FILE"
+    fi
 done
 
 cat >> "$REPORT_FILE" <<EOF

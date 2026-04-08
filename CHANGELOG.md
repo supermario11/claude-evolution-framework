@@ -2,6 +2,56 @@
 
 All notable changes to Claude Evolution Framework will be documented in this file.
 
+## [1.1.0] - 2025-04-08
+
+### 🎉 Major Philosophical Update
+
+#### Added - Knowledge Domains
+- **Philosophy Module**: Complete philosophical framework integrating:
+  - Growth Mindset (Carol Dweck)
+  - Epistemology (Plato, Descartes, Popper)
+  - Existentialism (Sartre, Nietzsche, Camus)
+  - Eastern Philosophy (Taoism, Zen, Confucianism)
+  - Systems Thinking and Antifragility
+  - File: `.claude/knowledge/philosophy/evolution-philosophy.md` (11,000+ words)
+
+- **Cognitive Science Module**: Evidence-based learning science:
+  - Memory Systems (Atkinson-Shiffrin model)
+  - Spaced Repetition (SM-2 algorithm)
+  - Depth of Processing Theory
+  - Metacognition and Self-Regulation
+  - Cognitive Load Theory
+  - Schema Theory and Mental Models
+  - File: `.claude/knowledge/psychology/cognitive-learning-science.md` (9,000+ words)
+
+- **Practical Guide**: Actionable implementation:
+  - Daily evolution rituals
+  - 7-step deep learning method
+  - Spaced repetition system
+  - Antifragile growth practices
+  - Knowledge transfer workflows
+  - Complete toolbox with scripts
+  - File: `docs/practical-evolution-guide.md` (15,000+ words)
+
+#### Enhanced - Evolution Engine
+- Dynamic category scanning (no longer hardcoded to 3 categories)
+- Automatically detects ALL knowledge subdirectories
+- Improved reporting with full category breakdown
+- Portable bash implementation (works on macOS/Linux)
+
+#### Improved - Documentation
+- README now highlights philosophical foundation
+- Added philosophy and psychology sections
+- Enhanced feature descriptions
+- Included scientific basis
+
+### 🧬 Evolution System
+- Support for unlimited knowledge categories
+- Philosophy and Psychology XP rewards
+- Comprehensive progress tracking
+
+---
+
 ## [1.0.0] - 2025-04-08
 
 ### 🎉 Initial Release
