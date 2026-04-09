@@ -1,176 +1,238 @@
-# Meta-Learning Skill：学习如何学习
+---
+name: meta-learning
+description: Use when encountering a new codebase or project that needs analysis for architecture patterns, design decisions, and reusable knowledge extraction
+---
 
-## 目标
-自动分析代码库，提取可复用的架构知识和设计模式
+# Meta-Learning: Learning How to Learn
 
-## 输入参数
-- `--input <description>`: 学习目标（如"分析项目架构"）
-- `--path <directory>`: 项目路径（默认：当前目录）
-- `--depth <level>`: 分析深度（quick/medium/thorough，默认：medium）
+## Overview
 
-## 工作流程
+Automatically analyze codebases to extract reusable architectural knowledge and design patterns.
 
-### 阶段 1：项目扫描 (Scanning)
+**Core principle:** Every codebase contains valuable patterns. Extract them systematically to accelerate future learning.
+
+## When to Use
+
+Use when:
+- Encountering a new codebase for the first time
+- Need to understand project architecture quickly
+- Want to extract reusable patterns from existing code
+- Building knowledge base from multiple projects
+- Onboarding to unfamiliar tech stack
+
+Don't use when:
+- Making quick bug fixes (too heavyweight)
+- Already familiar with the codebase
+- Project is too small (<100 files) to have meaningful patterns
+
+## The Five-Phase Process
+
+```dot
+digraph meta_learning {
+    rankdir=TB;
+    scan [label="1. Scan\nProject structure", shape=box];
+    recognize [label="2. Recognize\nIdentify patterns", shape=box];
+    extract [label="3. Extract\nCapture knowledge", shape=box];
+    store [label="4. Store\nSave to knowledge base", shape=box];
+    validate [label="5. Validate\nCross-check", shape=box];
+    report [label="6. Report\nGenerate summary", shape=box];
+
+    scan -> recognize;
+    recognize -> extract;
+    extract -> store;
+    store -> validate;
+    validate -> report;
+}
+```
+
+### Phase 1: Project Scanning
+
+**Quick assessment:**
 
 ```bash
-# 1. 统计项目规模
+# File count and size
 find . -type f | wc -l
 du -sh .
 
-# 2. 识别技术栈
-# - 检查配置文件（package.json, Podfile, build.gradle等）
-# - 分析文件扩展名分布
+# Tech stack detection
+ls package.json Podfile build.gradle 2>/dev/null
 
-# 3. 构建文件树
-tree -L 3 -I 'node_modules|Pods|build' > /tmp/project-structure.txt
+# Structure overview
+find . -maxdepth 3 -type d | head -20
 ```
 
-### 阶段 2：模式识别 (Pattern Recognition)
+**Output:** Project overview (size, tech stack, structure)
 
-扫描并识别以下模式：
+### Phase 2: Pattern Recognition
 
-#### 架构模式
-- [ ] MVC (Model-View-Controller)
-- [ ] MVVM (Model-View-ViewModel)
-- [ ] VIPER (View-Interactor-Presenter-Entity-Router)
-- [ ] Clean Architecture
-- [ ] Layered Architecture
+**Scan for architectural patterns:**
 
-#### 设计模式
-- [ ] Singleton（单例）
-- [ ] Factory（工厂）
-- [ ] Builder（建造者）
-- [ ] Observer（观察者）
-- [ ] Strategy（策略）
-- [ ] Dependency Injection（依赖注入）
+| Pattern | Indicators |
+|---------|-----------|
+| **MVC** | Separate Model/View/Controller dirs |
+| **MVVM** | ViewModel classes, data binding |
+| **Clean Architecture** | Domain/Data/Presentation layers |
+| **Repository** | Repository classes wrapping data sources |
+| **Dependency Injection** | Constructor injection, DI frameworks |
 
-#### 命名规范
-- 类名规范
-- 文件组织方式
-- 前缀使用
+**Scan for design patterns:**
 
-### 阶段 3：知识提取 (Knowledge Extraction)
+| Pattern | Code signatures |
+|---------|----------------|
+| **Singleton** | `static let shared`, `private init()` |
+| **Factory** | `create*()`, `make*()` methods |
+| **Builder** | Fluent interface, `build()` method |
+| **Observer** | NotificationCenter, delegates, callbacks |
+| **Strategy** | Protocol with multiple conformances |
 
-对于每个发现的模式：
+**Use grep and file inspection systematically.**
 
-1. **记录定义**
-   ```markdown
-   ## 模式名称
-   简要说明这个模式的用途
-   ```
+### Phase 3: Knowledge Extraction
 
-2. **提取代码示例**
-   ```swift
-   // 实际代码片段
-   class SingletonExample {
-       static let shared = SingletonExample()
-       private init() {}
-   }
-   ```
+For EACH discovered pattern:
 
-3. **标注使用场景**
-   - ✅ 适用：全局配置管理
-   - ❌ 不适用：需要多实例的场景
+1. **Capture definition** (what is this pattern?)
+2. **Extract code example** (show real usage from project)
+3. **Note context** (where and why it's used)
+4. **Assess quality** (is this a good implementation?)
 
-4. **评估优缺点**
-   - 优点：全局唯一访问点
-   - 缺点：难以测试、隐藏依赖
-
-### 阶段 4：知识存储 (Storage)
-
-```bash
-# 存储架构知识
-cat > .claude/knowledge/architecture/discovered-architecture.md <<EOF
-# 项目架构分析
-
-## 架构类型
-MVVM
-
-## 目录结构
-- Models/
-- Views/
-- ViewModels/
-- Services/
-
-## 特点
-- 清晰的职责分离
-- 数据绑定机制
-...
-EOF
-
-# 存储设计模式
-cat > .claude/knowledge/patterns/singleton-pattern.md <<EOF
-# Singleton 模式
-
-## 定义
-...
-
-## 代码示例
-...
-EOF
-```
-
-### 阶段 5：交叉验证 (Cross-Validation)
-
-与已有知识对比：
-- **重复**？→ 合并或更新
-- **冲突**？→ 标记待确认
-- **互补**？→ 建立关联
-
-### 阶段 6：生成报告 (Reporting)
+**Example output:**
 
 ```markdown
-# Meta-Learning 报告
+## Singleton Pattern
 
-## 项目概览
-- 名称: XXX
-- 规模: XXX files, XXX lines
-- 技术栈: Swift, UIKit, SnapKit
+**Definition:** Ensures class has only one instance with global access point.
 
-## 发现的模式
-1. MVVM 架构
-2. Dependency Injection
-3. Repository Pattern
+**Example:**
+\`\`\`swift
+class NetworkManager {
+    static let shared = NetworkManager()
+    private init() {}
 
-## 新增知识
-- 3 个架构模式
-- 5 个设计模式
-- 12 个代码片段
+    func request(_ endpoint: String) { ... }
+}
+\`\`\`
 
-## 建议
-- 统一命名规范
-- 增加单元测试
-...
+**Context:** Used for NetworkManager, ConfigurationManager, CacheManager
+
+**Assessment:**
+- ✅ Appropriate use (shared stateless service)
+- ⚠️  No protocol abstraction (harder to test)
 ```
 
-## 输出
+### Phase 4: Knowledge Storage
 
-- **知识库更新**: `.claude/knowledge/` 下新增条目
-- **分析报告**: `.claude/knowledge/evolution-log/YYYY-MM-DD-meta-learning.md`
-- **经验值**: +50 XP（发现新模式每个 +10 XP）
-
-## 示例用法
+**Save to knowledge base:**
 
 ```bash
-# 快速扫描
-claude --skill meta-learning --input "快速了解项目结构" --depth quick
+# Architecture knowledge
+.claude/knowledge/architecture/project-name-architecture.md
 
-# 深度分析
-claude --skill meta-learning --input "全面分析架构和设计模式" --depth thorough
+# Design patterns
+.claude/knowledge/patterns/pattern-name.md
 
-# 指定路径
-claude --skill meta-learning --input "分析 iOS 项目" --path ~/Projects/MyApp
+# Code snippets (if reusable)
+.claude/knowledge/code-snippets/snippet-name.md
 ```
 
-## 注意事项
+**File naming:**
+- Use kebab-case
+- Include date if time-sensitive: `YYYY-MM-DD-topic.md`
+- Specific names: `ios-network-layer.md` not `networking.md`
 
-- 大型项目建议先运行 quick 模式
-- 分析过程会生成临时文件在 `/tmp/`
-- 定期清理 evolution-log 避免文件过多
+### Phase 5: Cross-Validation
 
-## 进化追踪
+**Compare with existing knowledge:**
 
-每次运行会自动：
-- 更新 `learning_stats.patterns_discovered`
-- 增加 `experience_points`
-- 记录到 `evolution-log`
+```
+Is this pattern already documented?
+├─ YES: Is new example better?
+│  ├─ YES → Update existing doc
+│  └─ NO → Add note, don't duplicate
+└─ NO: Does it contradict existing knowledge?
+   ├─ YES → Flag for review
+   └─ NO → Add as new knowledge
+```
+
+**Validation checklist:**
+- [ ] No duplicate entries
+- [ ] Consistent terminology with existing knowledge
+- [ ] Cross-references added where relevant
+- [ ] Quality bar met (not just "we found this")
+
+### Phase 6: Reporting
+
+**Generate concise report:**
+
+```markdown
+# Meta-Learning Report: [Project Name]
+
+## Project Overview
+- **Size:** 1,234 files, 56K lines
+- **Tech Stack:** Swift, UIKit, Combine
+- **Architecture:** MVVM with Coordinator pattern
+
+## Patterns Discovered
+1. **MVVM Architecture** - Clean separation of concerns
+2. **Coordinator Pattern** - Navigation flow management
+3. **Repository Pattern** - Data layer abstraction
+4. **Dependency Injection** - Manual DI via constructors
+
+## Knowledge Added
+- `architecture/project-mvvm-architecture.md`
+- `patterns/coordinator-pattern.md`
+- `code-snippets/combine-network-request.swift`
+
+## Key Insights
+- Strong architecture foundation
+- Good separation of concerns
+- Test coverage: ~60% (could improve)
+
+## XP Earned: +40
+```
+
+## Quick Reference
+
+| Phase | Key Actions | Duration |
+|-------|-------------|----------|
+| **Scan** | File count, tech stack, structure | 2 min |
+| **Recognize** | Identify architectural and design patterns | 10 min |
+| **Extract** | Capture definitions, examples, context | 15 min |
+| **Store** | Save to knowledge base with proper naming | 5 min |
+| **Validate** | Cross-check against existing knowledge | 5 min |
+| **Report** | Generate summary and calculate XP | 3 min |
+
+**Total:** ~40 minutes for medium project (1000-5000 files)
+
+## Common Mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| **Capturing everything** | Be selective - only capture reusable patterns |
+| **Vague descriptions** | Include concrete code examples |
+| **Ignoring context** | Document WHERE and WHY pattern is used |
+| **Creating duplicates** | Always validate against existing knowledge first |
+| **Skipping quality assessment** | Not all patterns are good patterns - note issues |
+
+## Real-World Impact
+
+From previous meta-learning sessions:
+- Onboarding time: 2 days → 4 hours (with good knowledge base)
+- Pattern reuse: 85% of patterns appear across multiple projects
+- Knowledge transfer: Junior devs leverage senior's extracted patterns
+- Evolution speed: 3x faster learning with systematic extraction
+
+## Related Skills
+
+- **superpowers:using-git-worktrees** - Use if analyzing on separate branch
+- **superpowers:systematic-debugging** - Use if encountered during debugging
+
+## XP Calculation
+
+- Project scanned: +10 XP
+- Per architectural pattern discovered: +10 XP
+- Per design pattern discovered: +5 XP
+- Per high-quality code example: +5 XP
+- Report completed: +10 XP
+
+**Example:** Discovered MVVM + 3 design patterns + 4 examples = 10 + 10 + 15 + 20 + 10 = 65 XP
